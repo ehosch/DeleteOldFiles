@@ -55,6 +55,6 @@ while [[ $(df $DIRECTORY | awk 'NR==2 && gsub("%","") {print$5}') -ge $CAPACITY 
         find $DIRECTORY -mindepth 1 -type f -printf '%T+ %p\n' | sort | awk 'NR==1 {first = $1; $1=""; print $0}' | sed 's/^ //g' | tee -a $LOGFILE | xargs -d '\n' rm
         #find $DIRECTORY -mindepth 1 -type f -printf '%T+ %p\n' | sort | awk 'NR==1 {first = $1; $1=""; print $0}' | sed 's/^ //g'
 done
-
+echo "`/bin/date +%Y%m%d.%H%M%S:` Finished with reported capacity of: $(df $DIRECTORY | awk 'NR==2 && gsub("%","") {print$5}')%" >> $LOGFILE
 # Terminate the background running spinner
 #kill $spinner_pid
